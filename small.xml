@@ -1,0 +1,46 @@
+<catalog>
+    <book id="001" lang="ENG">
+        <isbn>23-34-42-3</isbn>
+        <regDate>1990-05-24</regDate>
+        <title>Operating Systems</title>
+        <publisher country="USA">Pearson</publisher>
+        <price>400</price>
+        <authors>
+            <author>Ganesh Tiwari</author>
+        </authors>
+    </book>
+    <book id="002">
+        <isbn>24-300-042-3</isbn>
+        <regDate>1995-05-12</regDate>
+        <title>Distributed Systems</title>
+        <publisher country="Nepal">Ekata</publisher>
+        <price>500</price>
+        <authors>
+            <author>Mahesh Poudel</author>
+            <author>Bikram Adhikari</author>
+            <author>Ramesh Poudel</author>
+        </authors>
+    </book>
+	    <book id="001" lang="ENG">
+        <isbn>23-34-42-3</isbn>
+        <regDate>1990-05-24</regDate>
+        <title>Operating Systems</title>
+        <publisher country="USA">Pearson</publisher>
+        <price>400</price>
+        <authors>
+            <author>Ganesh Tiwari</author>
+        </authors>
+    </book>
+    <book id="002">
+        <isbn>24-300-042-3</isbn>
+        <regDate>1995-05-12</regDate>
+        <title>Distributed Systems</title>
+        <publisher country="Nepal">Ekata</publisher>
+        <price>500</price>
+        <authors>
+            <author>Mahesh Poudel</author>
+            <author>Bikram Adhikari</author>
+            <author>Ramesh Poudel</author>
+        </authors>
+    </book>
+</catalog>
