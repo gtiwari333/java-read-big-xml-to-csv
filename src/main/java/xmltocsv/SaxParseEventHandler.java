@@ -19,14 +19,21 @@ public class SaxParseEventHandler extends DefaultHandler {
         this.writer = writer;
     }
 
+    /**
+     * @param qName      The qualified name (with prefix), or the
+     *                   empty string if qualified names are not available.
+     * @param attributes The attributes attached to the element.  If
+     *                   there are no attributes, it shall be an empty
+     *                   Attributes object.
+     */
     @Override
-    public void startElement(String s, String s1, String elementName, Attributes attributes) {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
 
         /*
         handle start of a new Book tag and attributes of an element
          */
 
-        if (elementName.equalsIgnoreCase("book")) {  //start
+        if (qName.equalsIgnoreCase("book")) {  //start
             bookTmp = new Book();
             counter++;
 
@@ -35,16 +42,19 @@ public class SaxParseEventHandler extends DefaultHandler {
             bookTmp.lang = attributes.getValue("lang");
         }
 
-        if (elementName.equalsIgnoreCase("publisher")) {
+        if (qName.equalsIgnoreCase("publisher")) {
             //read attributes of book
             bookTmp.publisher = attributes.getValue("country");
         }
     }
 
+    /**
+     * @param qName The qualified name (with prefix), or the
+     */
     @Override
-    public void endElement(String s, String s1, String element) {
+    public void endElement(String uri, String localName, String qName) {
 
-        if (element.equals("book")) { //end
+        if (qName.equals("book")) { //end
             try {
                 writer.write(bookTmp, counter);
             } catch (IOException e) {
@@ -53,30 +63,33 @@ public class SaxParseEventHandler extends DefaultHandler {
         }
 
         //read element's value
-        if (element.equalsIgnoreCase("isbn")) {
+        if (qName.equalsIgnoreCase("isbn")) {
             bookTmp.isbn = elValue;
         }
-        if (element.equalsIgnoreCase("title")) {
+        if (qName.equalsIgnoreCase("title")) {
             bookTmp.title = elValue;
         }
-        if (element.equalsIgnoreCase("publisher")) {
+        if (qName.equalsIgnoreCase("publisher")) {
             bookTmp.publisher = elValue;
         }
-        if (element.equalsIgnoreCase("author")) {
+        if (qName.equalsIgnoreCase("author")) {
             bookTmp.addAuthor(elValue);
         }
-        if (element.equalsIgnoreCase("price")) {
+        if (qName.equalsIgnoreCase("price")) {
             bookTmp.price = Integer.parseInt(elValue);
         }
-        if (element.equalsIgnoreCase("regDate")) {
+        if (qName.equalsIgnoreCase("regDate")) {
             bookTmp.regDate = LocalDate.parse(elValue);
         }
 
     }
 
+    /**
+     * Receive notification of character data inside an element.
+     */
     @Override
-    public void characters(char[] ac, int i, int j) {
-        elValue = new String(ac, i, j);
+    public void characters(char[] ch, int start, int length) {
+        elValue = new String(ch, start, length);
     }
 
 }
