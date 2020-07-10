@@ -17,6 +17,7 @@ public class RecordWriter<T> implements AutoCloseable {
         fw.write(t.toString());
 
         if (n % 10000 == 0) {
+            System.out.print("Working on " + n + " record");
             fw.flush();
         }
     }

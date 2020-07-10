@@ -8,13 +8,19 @@
     <version>FINAL</version>
 
     <properties>
-        <project.build.mainClass>xmltocsv.Main</project.build.mainClass>
+        <app.mainClass>xmltocsv.Main</app.mainClass>
         <!-- works with latest versions too -->
         <java.version>1.8</java.version>
+        <graalvm.version>20.1.0</graalvm.version>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>graal-sdk</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -26,8 +32,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-
-                            <mainClass>${project.build.mainClass}</mainClass>
+                            <mainClass>${app.mainClass}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -41,6 +46,30 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.graalvm.nativeimage</groupId>
+                <artifactId>native-image-maven-plugin</artifactId>
+                <version>${graalvm.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>native-image</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--The plugin figures out what jar files it needs to pass to the native image
+                    and what the executable main class should be. -->
+                    <!--<mainClass>${app.mainClass}</mainClass>-->
+                    <imageName>xmltocsv</imageName>
+                    <buildArgs>
+                        --no-fallback
+                    </buildArgs>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
